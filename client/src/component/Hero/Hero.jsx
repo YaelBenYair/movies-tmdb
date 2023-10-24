@@ -11,9 +11,6 @@ const Hero = () => {
           <h1 className="w-full text-lg text-white">
             Many movies in one place, what's your movie?
           </h1>
-          <ul>
-            <li></li>
-          </ul>
         </div>
       </div>
     </>

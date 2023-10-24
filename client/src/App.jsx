@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import "./global.css";
+import { useDispatch } from "react-redux";
+import { resetState } from "./redux/moviesStore";
 import Navbar from "./component/Navbar/Navbar";
 import Hero from "./component/Hero/Hero";
 import Popular from "./pages/Popular/Popular";
 import NowPlaying from "./pages/NowPlaying/NowPlaying";
 import MyFavorites from "./pages/MyFavorites/MyFavorites";
+import MoviePage from "./pages/MoviePage/MoviePage";
+import "./global.css";
+import BackToTopButton from "./component/BackToTopButton/BackToTopButton";
 
 const Dashboard = () => {
   return (
@@ -15,6 +19,7 @@ const Dashboard = () => {
       <div className="flex mx-auto w-[90%]">
         <Outlet />
       </div>
+      <BackToTopButton />
     </div>
   );
 };
@@ -41,6 +46,15 @@ const router = new createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const moviesLikes = localStorage.getItem("movieLikes");
+    // console.log(moviesLikes);
+    if (moviesLikes) {
+      dispatch(resetState(moviesLikes));
+    }
+  }, []);
   return (
     <div>
       <RouterProvider router={router} />
